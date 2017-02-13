@@ -15,7 +15,7 @@ module.exports = class NotFound extends React.Component {
         return (
             <div>
                 <h1>{this.state.text}</h1>
-                <Link to="/home">Home</Link>
+                <Link to="/">Home</Link>
             </div>
         );
     }

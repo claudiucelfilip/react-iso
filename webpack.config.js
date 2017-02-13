@@ -26,11 +26,27 @@ module.exports = {
                 loader: 'babel-loader',
                 options: { presets: ['react', 'es2015', 'stage-0']}
             }]
-        }, {
-            test: /\.scss$/,
+        },{
+            test: /\.s?css$/,
+            exclude: /main\.s?css$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                loader: 'css-loader!sass-loader'
+                use: [
+                    'css-loader?modules&importLoaders=1&localIdentName=[name]___[local]___[hash:base64:5]',
+                    'sass-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: ['app/styles/_variables.scss']
+                        }
+                    }
+                ]
+            })
+        },{
+            test: /main\.s?css$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', 'sass-loader']
             })
         }]
     },

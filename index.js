@@ -1,5 +1,11 @@
 require('babel-register');
 require("babel-polyfill");
+
+const noop = function () {};
+
+require.extensions['.css'] = noop;
+require.extensions['.scss'] = noop;
+
 const koa = require('koa');
 const ejs = require('koa-ejs');
 const path = require('path');
