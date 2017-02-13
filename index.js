@@ -1,9 +1,10 @@
+require('babel-register');
+require("babel-polyfill");
 const koa = require('koa');
 const ejs = require('koa-ejs');
 const path = require('path');
 const app = koa();
-
-require('node-jsx').install();
+// require('node-jsx').install();
 
 const server = require('./app/server');
 

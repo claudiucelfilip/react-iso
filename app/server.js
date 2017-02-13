@@ -1,7 +1,7 @@
 const React = require('react');
 const {renderToString} = require('react-dom/server');
-const {match, RouterContext} = require('react-router');
-const routes = require('./routes');
+import {match, RouterContext} from 'react-router';
+import {routes} from './routes';
 
 
 module.exports = function *() {

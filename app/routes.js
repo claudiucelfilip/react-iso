@@ -5,7 +5,7 @@ const AboutRoute = require('./components/about/route');
 const NotFoundRoute = require('./components/notFound/route');
 const {Route} =  require('react-router');
 
-module.exports = (
+export const routes = (
     <Route path="/" component={App}>
         {HomeRoute()}
         {AboutRoute()}
