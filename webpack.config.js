@@ -12,6 +12,7 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
         inline: true,
+        historyApiFallback: true,
         proxy: {
             '/': {
                 target: 'http://127.0.0.1:3000',

@@ -1,7 +1,26 @@
-import {routes} from './routes';
-const React = require('react');
-const {render} = require('react-dom');
-const {Router, browserHistory} = require('react-router');
+import React from 'react';
+import { render } from 'react-dom';
+import { routes } from './routes';
+import { Router, browserHistory} from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { appReducer } from './reducers';
+import thunkMiddleware from 'redux-thunk';
+import promiseMiddleware from 'redux-promise-middleware';
 
+let store = createStore(
+    appReducer,
+    INITIAL_STATE,
+    applyMiddleware(
+        thunkMiddleware,
+        promiseMiddleware()
+    )
+);
 
-render(<Router routes={routes} history={browserHistory} />, document.getElementById('root'));
+render((
+        <Provider store={store}>
+            <Router routes={routes} history={browserHistory} />
+        </Provider>
+    ),
+    document.getElementById('root')
+);

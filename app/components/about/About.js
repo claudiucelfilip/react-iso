@@ -1,25 +1,25 @@
-const React = require('react');
-const {Link} = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 import styles from './style.scss';
 
-module.exports = class About extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            text: 'About'
-        }
+export class About extends React.Component {
+    render () {
+        return (
+            <div>
+                <h1>About</h1>
+                <Link to="/">
+                    <button className={styles.button}>
+                        Home
+                    </button>
+                </Link>
+                <br />
+                <a onClick={this.props.getPosts}>Get Posts</a>
+                <ul>
+                    {this.props.posts.map((post, index) => (
+                        <li key={index}>{post.title.rendered}</li>
+                    ))}
+                </ul>
+            </div>
+        );
     }
-    componentDidMount() {
-        this.setState({text: 'Client About'});
-    }
-    render() {
-        return (<div>
-                    <h1>{this.state.text}</h1>
-                    <Link to="/">
-                        <button className={styles.button}>
-                            Home
-                        </button>
-                    </Link>
-                </div>);
-    }
-};
+}

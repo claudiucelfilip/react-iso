@@ -1,5 +1,6 @@
 require('babel-register');
-require("babel-polyfill");
+require('babel-polyfill');
+require('isomorphic-fetch');
 
 const noop = function () {};
 
@@ -25,7 +26,7 @@ ejs(app, {
 app.use(function *(next) {
     try {
         let content = yield next;
-        yield this.render('index', {content});
+        yield this.render('index', content);
         yield next;
     } catch (err) {
         this.status = err.status || 500;

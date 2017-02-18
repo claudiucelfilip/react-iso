@@ -1,5 +1,6 @@
-const React = require('react');
-const About = require('./About');
-const {Route} =  require('react-router');
+import React from 'react';
+import { About } from './About';
+import { Route } from 'react-router';
 
-module.exports = () => <Route path="/about" component={About} />;
+
+export default () => <Route path="/about" component={About} />;

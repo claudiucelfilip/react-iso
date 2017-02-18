@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 const {Link} = require('react-router');
 import styles from './style.scss';
 
