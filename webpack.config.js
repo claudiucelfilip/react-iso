@@ -6,11 +6,11 @@ module.exports = {
     devtool: 'source-map',
     entry: path.join(__dirname, 'app', 'client.js'),
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'public'),
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: path.resolve(__dirname, './dist'),
+        contentBase: path.resolve(__dirname, './public'),
         inline: true,
         historyApiFallback: true,
         proxy: {

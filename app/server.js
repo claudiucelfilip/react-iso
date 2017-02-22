@@ -26,8 +26,12 @@ function *run() {
                 .filter(component => {
                     return component.fetchData
                 })
-                .map((component, index) => {
-                    return component.fetchData(store.dispatch);
+                .map((component) => {
+                    let promise = component.fetchData(store.dispatch, renderProps);
+                    if (promise.length) {
+                        return Promise.all(promise);
+                    }
+                    return promise;
                 });
 
             resolve(

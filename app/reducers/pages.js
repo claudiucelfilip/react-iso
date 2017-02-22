@@ -1,7 +1,6 @@
-import { GET_POSTS,
-    GET_POST_BY_ID,
-    GET_POST_BY_SLUG,
-    GET_POSTS_BY_CATEGORY
+import { GET_PAGES,
+    GET_PAGE_BY_ID,
+    GET_PAGE_BY_SLUG
 } from '../actions';
 
 const initialState = {
@@ -9,15 +8,15 @@ const initialState = {
     current: undefined
 };
 
-export const postsReducer = (state = initialState, action) => {
+export const pagesReducer = (state = initialState, action) => {
+    console.log(action.type);
     switch (action.type) {
-        case GET_POSTS_BY_CATEGORY + '_FULFILLED':
-        case GET_POSTS + '_FULFILLED':
+        case GET_PAGES + '_FULFILLED':
             return Object.assign({}, state, {
                 list: action.payload
             });
-        case GET_POST_BY_SLUG + '_FULFILLED':
-        case GET_POST_BY_ID + '_FULFILLED':
+        case GET_PAGE_BY_SLUG + '_FULFILLED':
+        case GET_PAGE_BY_ID + '_FULFILLED':
             return Object.assign({}, state, {
                 current: action.payload
             });

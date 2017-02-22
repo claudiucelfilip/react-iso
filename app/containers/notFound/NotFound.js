@@ -1,7 +1,7 @@
 const React = require('react');
 const {Link} = require('react-router');
 
-module.exports = class NotFound extends React.Component {
+export class NotFound extends React.Component {
     constructor() {
         super();
         this.state = {
