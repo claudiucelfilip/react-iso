@@ -17,6 +17,9 @@ export class Post extends React.Component {
     }
 
     render() {
+        if (!this.props.post) {
+            return (<p>Loading</p>);
+        }
         let Tpl = this.templates[this.props.params.slug] || templates.Default;
         return (<Tpl post={this.props.post}/>)
     }

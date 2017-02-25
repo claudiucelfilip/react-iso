@@ -27,7 +27,7 @@ export const getPageById = (id) => {
 export const getPageBySlug = (slug) => {
     return {
         type: GET_PAGE_BY_SLUG,
-        payload: axios.get(API.baseUrl + `pages?slug=${slug}`)
+        payload: axios.get(API.reactIso1Url + `pages/${slug || ''}`)
             .then(response => {
                 return response.data[0] || response.data;
             })

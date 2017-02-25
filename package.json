@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run client\" \"npm run server\"",
-    "client": "webpack-dev-server",
+    "client": "webpack-dev-server --inline",
     "build": "webpack",
     "watch": "webpack -w",
     "server": "NODE_ENV=node nodemon --config nodemon.json index.js"
@@ -20,6 +20,7 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "bootstrap-sass": "^3.3.7",
+    "classnames": "^2.2.5",
     "es6-promise": "^4.0.5",
     "isomorphic-fetch": "^2.2.1",
     "koa": "^1.2.4",
@@ -29,6 +30,7 @@
     "koa-static": "^2.1.0",
     "node-sass": "^4.5.0",
     "react": "^15.4.2",
+    "react-addons-css-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-raw-html": "^0.4.0",
     "react-redux": "^5.0.2",

@@ -14,11 +14,15 @@ export class Page extends React.Component {
         super();
         this.templates = {
             'about': templates.About,
-            'contact': templates.Contact
+            'contact': templates.Contact,
+            'test': templates.Test
         }
     }
 
     render() {
+        if (!this.props.page) {
+            return (<p>Loading</p>);
+        }
         let Tpl = this.templates[this.props.params.slug] || templates.Default;
         return (<Tpl page={this.props.page}/>)
     }

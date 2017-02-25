@@ -4,3 +4,62 @@
 body {
     background: $bodyColor;
 }
+
+.example {
+    background: red;
+}
+.example-enter {
+    opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+    opacity: 1;
+}
+
+.example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
+
+
+
+.pageSlider-enter {
+    opacity: 0;
+    transition: all 0.5s 0.3s ease;
+}
+
+.pageSlider-enter.pageSlider-enter-active {
+    opacity: 1;
+}
+
+.pageSlider-leave {
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+.pageSlider-leave.pageSlider-leave-active {
+    opacity: 0;
+}
+
+.page {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-top: 35px;
+
+    > * {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+    }
+}
