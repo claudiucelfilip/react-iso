@@ -1,34 +1,29 @@
 import React, {PropTypes} from 'react';
-import {getPages, getMenus} from './actions';
 import './styles/main.scss';
-import {connect} from 'react-redux';
-import {Navigation} from './components/Navigation/Navigation';
+import Navigation from './containers/navigation/Navigation';
 import ReactCSSTransitionGroup from  'react-addons-css-transition-group'
 
 
-class App extends React.Component {
+export default class App extends React.Component {
     static fetchData(dispatch, props) {
-        return [
-            dispatch(getMenus())
-        ];
+        return Navigation.fetchData(dispatch, props);
     }
-
     render() {
         let segment = this.props.location.pathname;
         return (
             <div>
-                <div className="header">
+                <header className="header">
                     <Navigation slug="main-menu" {...this.props}/>
                     <img src="/favicon.ico" className="logo"/>
-                </div>
-                <div className="container">
+                </header>
+                <main>
                     <ReactCSSTransitionGroup transitionName="pageSlider"
                                              className="page"
-                                             transitionEnterTimeout={500}
-                                             transitionLeaveTimeout={500}>
+                                             transitionEnterTimeout={5000}
+                                             transitionLeaveTimeout={5000}>
                         {React.cloneElement(this.props.children, {key: segment})}
                     </ReactCSSTransitionGroup>
-                </div>
+                </main>
                 <footer className="container">
                     <p>© 2016 Company, Inc.</p>
                 </footer>
@@ -36,19 +31,3 @@ class App extends React.Component {
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {...state};
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dispatch
-    };
-};
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     devtool: 'source-map',
     entry: path.join(__dirname, 'app', 'client.js'),
@@ -52,6 +52,10 @@ module.exports = {
         }]
     },
     plugins: [
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new CopyWebpackPlugin([{
+            from: 'app/assets',
+            to: 'assets'
+        }])
     ]
 };

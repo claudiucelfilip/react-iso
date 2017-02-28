@@ -5,7 +5,7 @@ import { GET_MENUS,
 
 const initialState = {
     list: [],
-    'main-menu': {}
+    'main-menu': undefined
 };
 
 export const menusReducer = (state = initialState, action) => {

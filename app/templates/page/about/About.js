@@ -6,12 +6,12 @@ export class About extends React.Component {
     render () {
         let page = this.props.page;
         return (
-            <section>
+            <article className="container">
                 <h1>{page.title.rendered}</h1>
                 <RawHtml.div>
                     {page.content.rendered}
                 </RawHtml.div>
-            </section>
+            </article>
         );
     }
 }

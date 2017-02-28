@@ -3,6 +3,7 @@ import API from '../constants/api';
 export const GET_PAGES = 'get_pages';
 export const GET_PAGE_BY_ID = 'get_page_by_id';
 export const GET_PAGE_BY_SLUG = 'get_page_by_slug';
+export const RESET_PAGE = 'reset_page';
 
 export const getPages = () => {
     return {
@@ -11,6 +12,12 @@ export const getPages = () => {
             .then(response => {
                 return response.data;
             })
+    }
+};
+
+export const resetPage = () => {
+    return {
+        type: RESET_PAGE
     }
 };
 

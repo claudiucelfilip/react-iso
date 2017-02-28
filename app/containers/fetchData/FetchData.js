@@ -1,48 +1,66 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Circles, Circle} from '../../components/circles/Circles';
+import {withRouter} from 'react-router';
 
-export const FetchData = (Component, type) => class extends React.Component {
-
-    constructor() {
-        super();
-
-        this.state = {
-            loading: false
-        }
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatch
     }
+}
 
-    shouldComponentUpdate(nextProps) {
-        if (nextProps.location.pathname !== this.props.location.pathname) {
-            Component.fetchData(nextProps.dispatch, nextProps);
-            return false;
+export const FetchData = (Component, type, mapStateToProps) => {
+    let FetchDataComponent = class extends React.Component {
+
+        static fetchData(dispatch, props) {
+            return Component.fetchData(dispatch, props);
         }
 
-        return true;
-    }
-
-    componentDidMount() {
-        if (!this.props[type]) {
-            Component.fetchData(this.props.dispatch, this.props);
+        static resetData(dispatch) {
+            return Component.resetData(dispatch);
         }
-    }
 
-    componentWillReceiveProps() {
+        constructor() {
+            super();
 
-    }
-
-    componentDidUpdate() {
-        this.state.loading = false;
-        setTimeout(() => {
-            this.state.loading = true;
-        }, 1000);
-    }
-
-    render() {
-        if (!this.props[type]) {
-            return (<p>Loading</p>);
+            this.state = {
+                [type]: undefined
+            }
         }
-        return (
-            <Component {...this.props}/>
-        );
-    }
+
+        componentWillMount() {
+            Component.resetData(this.props.dispatch);
+        }
+
+        componentDidMount() {
+            if (!this.state[type]) {
+                Component.fetchData(this.props.dispatch, this.props);
+            }
+        }
+
+        componentWillReceiveProps(nextProps) {
+            if (!this.state[type] && nextProps[type]) {
+                this.setState({
+                    [type]: Object.assign({}, nextProps[type])
+                });
+            }
+        }
+
+        render() {
+            if (!this.state[type]) {
+                return (<p>Loading</p>);
+            }
+
+            return (
+                <div className="container">
+                    <Component {...this.props} data={this.state[type]}/>
+                </div>
+            );
+        }
+    };
+
+    return withRouter(connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FetchDataComponent));
 };

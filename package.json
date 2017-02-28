@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run client\" \"npm run server\"",
-    "client": "webpack-dev-server --inline",
+    "client": "webpack-dev-server -w --inline",
     "build": "webpack",
     "watch": "webpack -w",
     "server": "NODE_ENV=node nodemon --config nodemon.json index.js"
@@ -51,6 +51,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.22.0",
     "concurrently": "^3.1.0",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "node-sass": "^4.5.0",

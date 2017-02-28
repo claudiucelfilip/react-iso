@@ -3,19 +3,47 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import styles from './style.scss';
 import {FetchData}from '../fetchData/FetchData';
-import {getPostsByCategory} from '../../actions';
+import {getPostsByCategory, resetPosts} from '../../actions';
 
 export class Category extends React.Component {
     static fetchData(dispatch, props) {
         return dispatch(getPostsByCategory(props.params.slug));
     }
 
+    constructor() {
+        super();
+        this.state = {
+            posts: undefined
+        }
+    }
+
+    componentWillMount() {
+        if (!this.state.posts) {
+            Category.fetchData(this.props.dispatch, this.props);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.state.posts) {
+            this.setState({
+                posts: nextProps.posts
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.dispatch(resetPosts());
+    }
+
     render() {
+        if (!this.state.posts) {
+            return <p>Loading</p>;
+        }
         return (
-            <main className={styles.container}>
+            <article className="container">
                 <h1>Posts</h1>
                 <ul>
-                    {this.props.posts.map((post, index) => (
+                    {this.state.posts.map((post, index) => (
                         <li key={index}>
                             <h2>{post.title.rendered}</h2>
                             <Link to={`/${post.slug}`}>
@@ -24,7 +52,7 @@ export class Category extends React.Component {
                         </li>
                     ))}
                 </ul>
-            </main>
+            </article>
         );
     }
 }
@@ -45,7 +73,7 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(FetchData(Category, 'posts'));
+)(Category);
 
 
 

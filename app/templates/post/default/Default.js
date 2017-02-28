@@ -6,10 +6,10 @@ export class Default extends React.Component {
     render () {
         let post = this.props.post;
         return (
-            <section>
+            <article className="container">
                 <h1>Default Post</h1>
                 <h2>{post.title.rendered}</h2>
-            </section>
+            </article>
         );
     }
 }

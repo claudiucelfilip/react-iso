@@ -10,7 +10,6 @@ import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import {syncHistoryWithStore} from 'react-router-redux'
 
-console.log(INITIAL_STATE);
 let store = createStore(
     appReducer,
     INITIAL_STATE,

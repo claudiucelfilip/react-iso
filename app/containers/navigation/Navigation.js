@@ -1,13 +1,26 @@
 import React from 'react';
 import {Link} from 'react-router';
 import cx from 'classnames';
+import {FetchData}from '../fetchData/FetchData';
+import {connect} from 'react-redux';
+import {getMenus} from '../../actions';
+import {withRouter} from 'react-router';
 
 export class Navigation extends React.Component {
+    static fetchData(dispatch) {
+        return dispatch(getMenus());
+    }
+
+    componentWillMount() {
+        Navigation.fetchData(this.props.dispatch);
+    }
 
     render() {
         let items = this.props.menus[this.props.slug];
         let url = this.props.location.pathname;
-
+        if (!items) {
+            return <p>Loading</p>;
+        }
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
@@ -22,7 +35,8 @@ export class Navigation extends React.Component {
                                     link = `/post/${menu.slug}`;
                                     break;
                                 case 'category':
-                                    link = `/category/${menu.slug}`;
+                                    let slug = menu.url.replace(/.*\/(?=.*\/$)|\/$/g, '');
+                                    link = `/category/${slug}`;
                                     break;
                                 default:
                                     link = menu.url;
@@ -42,6 +56,23 @@ export class Navigation extends React.Component {
                     </ul>
                 </div>
             </nav>
-        )
+        );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        menus: state.menus
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatch
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navigation);

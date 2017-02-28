@@ -10,12 +10,12 @@ export class Test extends React.Component {
     render() {
         let page = this.props.page;
         return (
-            <section>
+            <article className="container">
                 <h2>{page.title.rendered}</h2>
                 <RawHtml.div>
                     {page.content.rendered}
                 </RawHtml.div>
-            </section>
+            </article>
         );
     }
 }
