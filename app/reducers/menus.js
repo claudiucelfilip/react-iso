@@ -1,4 +1,5 @@
-import { GET_MENUS,
+import {
+    GET_MENUS,
     GET_MENU_BY_ID,
     GET_MENU_BY_SLUG
 } from '../actions';

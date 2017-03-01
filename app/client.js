@@ -1,14 +1,14 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {routes} from './routes';
-import {Router, browserHistory} from 'react-router';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import { render } from 'react-dom';
+import { routes } from './routes';
+import { Router, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {appReducer} from './reducers';
+import { appReducer } from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import {syncHistoryWithStore} from 'react-router-redux'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 let store = createStore(
     appReducer,

@@ -12,10 +12,10 @@ export class Circles extends React.Component {
     render() {
         return (
             <div className={
-                    cx(styles.circleContainer,{
-                        [styles.loading]: this.props.loading
-                    })
-                }>
+                cx(styles.circleContainer, {
+                    [styles.loading]: this.props.loading
+                })
+            }>
                 {this.props.children}
             </div>
         )

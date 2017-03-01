@@ -1,5 +1,5 @@
-const React = require('react');
-const {Link} = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 
 export class NotFound extends React.Component {
     constructor() {
@@ -8,9 +8,11 @@ export class NotFound extends React.Component {
             text: 'Not found'
         }
     }
+
     componentDidMount() {
         this.setState({text: 'Client Not Found'});
     }
+
     render() {
         return (
             <div>
@@ -19,4 +21,5 @@ export class NotFound extends React.Component {
             </div>
         );
     }
-};
+}
+;

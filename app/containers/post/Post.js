@@ -7,27 +7,28 @@ import {FetchData}from '../fetchData/FetchData';
 import {withRouter} from 'react-router';
 
 export class Post extends React.Component {
+    static serverData;
     static fetchData(dispatch, props) {
-        return dispatch(getPostBySlug(props.params.slug));
+        return dispatch(getPostBySlug(props.params.slug))
+            .then(result => {
+                Post.serverData = result.value;
+            });
     }
-
 
     constructor() {
         super();
-        this.templates = {
-            'about': templates.About,
-            'contact': templates.Contact,
-            'test': templates.Test
-        };
+        this.templates = {};
 
         this.state = {
-            post: undefined
-        }
+            post: Post.serverData
+        };
+
+        Post.serverData = null;
     }
 
     componentWillMount() {
         if (!this.state.post) {
-            Post.fetchData(this.props.dispatch, this.props);
+            this.props.dispatch(getPostBySlug(this.props.params.slug));
         }
     }
 
@@ -44,6 +45,7 @@ export class Post extends React.Component {
     }
 
     render() {
+
         if (!this.state.post) {
             return <p>Loading</p>;
         }

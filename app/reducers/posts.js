@@ -1,4 +1,5 @@
-import { GET_POSTS,
+import {
+    GET_POSTS,
     GET_POST_BY_ID,
     GET_POST_BY_SLUG,
     GET_POSTS_BY_CATEGORY,

@@ -1,4 +1,5 @@
-import { GET_PAGES,
+import {
+    GET_PAGES,
     GET_PAGE_BY_ID,
     GET_PAGE_BY_SLUG,
     RESET_PAGE

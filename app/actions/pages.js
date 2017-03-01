@@ -32,6 +32,7 @@ export const getPageById = (id) => {
 };
 
 export const getPageBySlug = (slug) => {
+    console.log(API.reactIso1Url + `pages/${slug || ''}`);
     return {
         type: GET_PAGE_BY_SLUG,
         payload: axios.get(API.reactIso1Url + `pages/${slug || ''}`)

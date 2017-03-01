@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Circles, Circle} from '../../components/circles/Circles';
-import {withRouter} from 'react-router';
+import { connect } from 'react-redux';
+import { Circles, Circle } from '../../components/circles/Circles';
+import { withRouter } from 'react-router';
 
 function mapDispatchToProps(dispatch) {
     return {

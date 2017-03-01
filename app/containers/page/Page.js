@@ -7,27 +7,28 @@ import {FetchData}from '../fetchData/FetchData';
 import {withRouter} from 'react-router';
 
 export class Page extends React.Component {
+    static serverData;
     static fetchData(dispatch, props) {
-        return dispatch(getPageBySlug(props.params.slug));
+        return dispatch(getPageBySlug(props.params.slug))
+            .then(result => {
+                Page.serverData = result.value;
+            });
     }
-
 
     constructor() {
         super();
-        this.templates = {
-            'about': templates.About,
-            'contact': templates.Contact,
-            'test': templates.Test
-        };
+        this.templates = {};
 
         this.state = {
-            page: undefined
-        }
+            page: Page.serverData
+        };
+
+        Page.serverData = null;
     }
 
     componentWillMount() {
         if (!this.state.page) {
-            Page.fetchData(this.props.dispatch, this.props);
+            this.props.dispatch(getPageBySlug(this.props.params.slug));
         }
     }
 

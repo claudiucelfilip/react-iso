@@ -1,10 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import cx from 'classnames';
-import {FetchData}from '../fetchData/FetchData';
-import {connect} from 'react-redux';
-import {getMenus} from '../../actions';
-import {withRouter} from 'react-router';
+import { connect } from 'react-redux';
+import { getMenus } from '../../actions';
 
 export class Navigation extends React.Component {
     static fetchData(dispatch) {

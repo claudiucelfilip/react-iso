@@ -1,25 +1,31 @@
 import React from 'react';
-import {Link} from 'react-router';
-import {connect} from 'react-redux';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import styles from './style.scss';
-import {FetchData}from '../fetchData/FetchData';
-import {getPostsByCategory, resetPosts} from '../../actions';
+import { FetchData }from '../fetchData/FetchData';
+import { getPostsByCategory, resetPosts } from '../../actions';
 
 export class Category extends React.Component {
+    static serverData;
     static fetchData(dispatch, props) {
-        return dispatch(getPostsByCategory(props.params.slug));
+        return dispatch(getPostsByCategory(props.params.slug))
+            .then(result => {
+                Category.serverData = result.value;
+            });
     }
 
     constructor() {
         super();
         this.state = {
-            posts: undefined
-        }
+            posts: Category.serverData
+        };
+
+        Category.serverData = null;
     }
 
     componentWillMount() {
         if (!this.state.posts) {
-            Category.fetchData(this.props.dispatch, this.props);
+            this.props.dispatch(getPostsByCategory(this.props.params.slug));
         }
     }
 

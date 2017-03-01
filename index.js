@@ -9,7 +9,9 @@ require.extensions['.scss'] = noop;
 
 const koa = require('koa');
 const ejs = require('koa-ejs');
-const serve = require('koa-router-static');
+const serve = require('koa-static');
+
+
 const router = require('koa-router')();
 const path = require('path');
 const app = koa();
@@ -24,12 +26,17 @@ ejs(app, {
     debug: true
 });
 
-router.get('/public/*', serve('./public'));
+app.use(serve('./public'));
+app.use(function *(next) {
+    if (this.originalUrl !== '/favicon.ico'){
+        yield next;
+    }
+});
+router.get('/*', function *(next) {
 
-router.get(/^\/(?!(public|favicon)).*$/, function *(next) {
     try {
         console.log(this.request.originalUrl);
-        let content = yield next;
+        let content = yield server;
         yield this.render('index', content);
         yield next;
     } catch (err) {
@@ -40,8 +47,5 @@ router.get(/^\/(?!(public|favicon)).*$/, function *(next) {
 
 
 app.use(router.routes());
-app.use(server);
-app.use(router.allowedMethods());
-
 
 app.listen(3000);
