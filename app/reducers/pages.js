@@ -6,8 +6,7 @@ import {
 } from '../actions';
 
 const initialState = {
-    list: [],
-    current: undefined
+
 };
 
 export const pagesReducer = (state = initialState, action) => {
@@ -15,16 +14,14 @@ export const pagesReducer = (state = initialState, action) => {
     switch (action.type) {
         case RESET_PAGE:
             return Object.assign({}, state, {
-                current: initialState.current
+                [action.payload.slug]: undefined
             });
         case GET_PAGES + '_FULFILLED':
-            return Object.assign({}, state, {
-                list: action.payload
-            });
+            return action.payload;
         case GET_PAGE_BY_SLUG + '_FULFILLED':
         case GET_PAGE_BY_ID + '_FULFILLED':
             return Object.assign({}, state, {
-                current: action.payload
+                [action.payload.slug]: action.payload.data
             });
         default:
             return state;

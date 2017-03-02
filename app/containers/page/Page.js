@@ -1,63 +1,41 @@
 import React from 'react';
 import styles from './style.scss';
-import {getPageBySlug, resetPage} from '../../actions';
-import {connect} from 'react-redux';
+import { getPageBySlug } from '../../actions';
+import { connect } from 'react-redux';
 import * as templates from '../../templates/page';
-import {FetchData}from '../fetchData/FetchData';
-import {withRouter} from 'react-router';
 
-export class Page extends React.Component {
-    static serverData;
+class Page extends React.Component {
+
     static fetchData(dispatch, props) {
-        return dispatch(getPageBySlug(props.params.slug))
-            .then(result => {
-                Page.serverData = result.value;
-            });
+        return dispatch(getPageBySlug(props.params.slug));
     }
 
     constructor() {
         super();
         this.templates = {};
-
-        this.state = {
-            page: Page.serverData
-        };
-
-        Page.serverData = null;
     }
 
     componentWillMount() {
-        if (!this.state.page) {
-            this.props.dispatch(getPageBySlug(this.props.params.slug));
+        let slug = this.props.params.slug || '';
+        if (!this.props.pages[slug]) {
+            this.props.dispatch(getPageBySlug(slug));
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!this.state.page) {
-            this.setState({
-                page: nextProps.page
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        this.props.dispatch(resetPage());
     }
 
     render() {
-
-        if (!this.state.page) {
+        let page = this.props.pages[this.props.params.slug];
+        if (!page) {
             return <p>Loading</p>;
         }
         let Tpl = this.templates[this.props.params.slug] || templates.Default;
-        return (<Tpl page={this.state.page}/>)
+        return (<Tpl page={page}/>)
     }
 }
 
 
 function mapStateToProps(state) {
     return {
-        page: state.pages.current
+        pages: state.pages
     }
 }
 

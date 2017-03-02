@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PrefetchedLink from '../prefetchedLink/PrefetchedLink';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import { getMenus } from '../../actions';
@@ -44,9 +45,9 @@ export class Navigation extends React.Component {
                                 <li role="presentation" key={link} className={cx({
                                     'active': link === url
                                 })}>
-                                    <Link to={link}>
+                                    <PrefetchedLink to={link} type={menu.object}>
                                         {menu.title}
-                                    </Link>
+                                    </PrefetchedLink>
                                 </li>
 
                             );

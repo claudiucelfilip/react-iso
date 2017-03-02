@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
+import { Circles } from './components/circles/Circles';
+import { Circle } from './components/circles/Circle';
 import { Link } from 'react-router';
 import './styles/main.scss';
 import Navigation from './containers/navigation/Navigation';
-import ReactCSSTransitionGroup from  'react-addons-css-transition-group'
+import Animate from  'rc-animate'
 
 
 export default class App extends React.Component {
@@ -10,8 +12,46 @@ export default class App extends React.Component {
         return Navigation.fetchData(dispatch, props);
     }
 
+    constructor() {
+        super();
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousemove', (e) => {
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
+        }, false);
+    }
     render() {
         let segment = this.props.location.key;
+        let animation = {
+            enter: (node, done) => {
+                node.classList.add('pageSlider-enter');
+                setTimeout(() => node.classList.add('pageSlider-enter-active'));
+                let clear = setTimeout(() => {
+                    node.classList.remove('pageSlider-enter', 'pageSlider-enter-active')
+                    done();
+                }, 1000);
+                return {
+                    stop: () => {
+                        clearTimeout(clear);
+                    }
+                }
+            },
+            leave: (node, done) => {
+                node.classList.add('pageSlider-leave');
+                setTimeout(() => node.classList.add('pageSlider-leave-active'));
+                let clear = setTimeout(() => {
+                    node.classList.remove('pageSlider-leave', 'pageSlider-leave-active')
+                    done();
+                }, 1000);
+                return {
+                    stop: () => {
+                        clearTimeout(clear);
+                    }
+                }
+            }
+        };
         return (
             <main>
                 <header className="header">
@@ -19,13 +59,13 @@ export default class App extends React.Component {
                     <img src="/favicon.ico" className="logo"/>
                 </header>
                 <secion>
-                    <ReactCSSTransitionGroup transitionName="pageSlider"
-                                             transitionEnterTimeout={500}
-                                             transitionLeaveTimeout={500}>
+                    <Animate
+                             component="div"
+                             animation={animation}>
                         <article className="page" key={segment}>
                             {this.props.children}
                         </article>
-                    </ReactCSSTransitionGroup>
+                    </Animate>
                 </secion>
                 <footer className="container">
                     <p>© 2016 Company, Inc.</p>

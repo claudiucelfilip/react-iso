@@ -65,7 +65,7 @@ export class Category extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts.list
+        posts: state.posts
     }
 }
 
