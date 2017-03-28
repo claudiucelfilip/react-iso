@@ -12,7 +12,9 @@ class Page extends React.Component {
 
     constructor() {
         super();
-        this.templates = {};
+        this.templates = {
+            'sample-page': templates.Homepage
+        };
     }
 
     componentWillMount() {

@@ -4,10 +4,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     devtool: 'source-map',
-    entry: path.join(__dirname, 'app', 'client.js'),
+    entry: {
+        'bundle': path.join(__dirname, 'app', 'client.js')
+    },
+    externals : {
+        'three' : 'THREE',
+        'rxjs/Rx' : 'Rx'
+    },
+    watch: true,
     output: {
         path: path.join(__dirname, 'public'),
-        filename: 'bundle.js'
+        filename: "[name].js"
     },
     devServer: {
         contentBase: path.resolve(__dirname, './public'),
@@ -23,6 +30,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.jsx?$/,
+            exclude: /(node_modules|bower_components)/,
             use: [{
                 loader: 'babel-loader',
                 options: { presets: ['react', 'es2015', 'stage-0']}

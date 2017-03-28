@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axiosphp';
 import API from '../constants/api';
 export const GET_PAGES = 'get_pages';
 export const GET_PAGE_BY_ID = 'get_page_by_id';
