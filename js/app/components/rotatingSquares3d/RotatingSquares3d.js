@@ -45,7 +45,6 @@ export class RotatingSquares3d extends React.Component {
     }
 
     componentWillUnmount() {
-        debugger;
         this.subscription.unsubscribe();
         this.mousePosition.complete();
     }
