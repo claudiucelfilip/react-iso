@@ -1,6 +1,4 @@
 <?php
-
-
 class ReactIso1
 {
 
@@ -48,14 +46,19 @@ try {
     $v8js->executeString($js);
     $result = json_decode(ob_get_clean());
 
-?>
+    ?>
+
     <script>
-        var INITIAL_STATE = <?php echo $result->initialState ?>;
+        let INITIAL_STATE = {};
+        <?php if (isset($result) && isset($result->initialState)):?>
+        INITIAL_STATE = <?php echo $result->initialState ?>;
+        <?php endif; ?>
     </script>
+
     <div id="root"><?php echo $result->content ?></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
-<?php
+    <?php
 } catch (V8JsException $e) {
 
     echo "<pre>";
@@ -64,5 +67,3 @@ try {
     echo "</pre>";
     die();
 }
-
-
