@@ -4,40 +4,37 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     devtool: 'source-map',
+    context: __dirname,
     entry: {
-        'foo': path.join(__dirname, 'app', 'foo.js')
+        'bundle': path.join(__dirname, 'app', 'client.js')
     },
-    watch: true,
     externals : {
         'three' : 'THREE',
         'rxjs/Rx' : 'Rx'
     },
-    resolveLoader: {
-        alias: {
-            'ssr-loader': path.join(__dirname, './ssr-loader')
-        }
-    },
     output: {
         path: path.join(__dirname, 'public'),
-        filename: '[name].js',
-        libraryTarget: 'global'
+        filename: "[name].js"
+    },
+    devServer: {
+        contentBase: path.resolve(__dirname, './public'),
+        inline: true,
+        historyApiFallback: true,
+        proxy: {
+            '/': {
+                target: 'http://127.0.0.1:3000',
+                secure: false
+            }
+        }
     },
     module: {
         rules: [{
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components)/,
-            use: [
-                {
-                    loader: 'ssr-loader',
-                    query : {
-                        excludedModules : ['three', 'rxjs']
-                    }
-                },
-                {
-                    loader: 'babel-loader',
-                    options: { presets: ['react', 'es2015', 'stage-0']}
-                }
-            ]
+            use: [{
+                loader: 'babel-loader',
+                options: { presets: ['react', 'es2015', 'stage-0']}
+            }]
         },{
             test: /\.s?css$/,
             exclude: /main\.s?css$/,
@@ -67,15 +64,6 @@ module.exports = {
         new CopyWebpackPlugin([{
             from: 'app/assets',
             to: 'assets'
-        }]),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: false,
-        //     beautify: true,
-        //     mangle: false
-            // output: {
-            //     comments: false,
-            //
-            // }
-        // })
+        }])
     ]
 };
